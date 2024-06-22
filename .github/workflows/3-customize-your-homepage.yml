@@ -65,3 +65,4 @@ jobs:
           from_step: 3
           to_step: 4
           branch_name: my-pages
+          base_branch_name: master
