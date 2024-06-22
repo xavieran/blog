@@ -3,13 +3,13 @@ name: Step 0, Welcome
 # This step triggers after the learner creates a new repository from the template.
 # This workflow updates from step 0 to step 1.
 
-# This will run every time we create push a commit to `main`.
+# This will run every time we create push a commit to `master`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - master
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -20,7 +20,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  # Get the current step to only run the main job when the learner is on the same step.
+  # Get the current step to only run the master job when the learner is on the same step.
   get_current_step:
     name: Check current step number
     runs-on: ubuntu-latest

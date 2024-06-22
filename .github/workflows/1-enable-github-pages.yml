@@ -16,7 +16,7 @@ permissions:
   contents: write
 
 jobs:
-  # Get the current step to only run the main job when the learner is on the same step.
+  # Get the current step to only run the master job when the learner is on the same step.
   get_current_step:
     name: Check current step number
     runs-on: ubuntu-latest

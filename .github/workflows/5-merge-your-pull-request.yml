@@ -1,15 +1,15 @@
 name: Step 5, Merge your pull request
 
-# This step triggers after a pull requst is merged to `main`.
+# This step triggers after a pull requst is merged to `master`.
 # This workflow updates from step 5 to step X.
 
-# This will run every time we create push a commit to `main`.
+# This will run every time we create push a commit to `master`.
 # Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - master
 
 # Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 permissions:
@@ -18,7 +18,7 @@ permissions:
   contents: write
 
 jobs:
-  # Get the current step to only run the main job when the learner is on the same step.
+  # Get the current step to only run the master job when the learner is on the same step.
   get_current_step:
     name: Check current step number
     runs-on: ubuntu-latest
