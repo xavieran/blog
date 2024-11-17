@@ -137,17 +137,17 @@ The combatant world locations are not indexed by `CombatantIndex`. They seem to 
 
 For combatant #3 we can see how the combatant world location changes as we progress time:
 ```
-#70 CombatWorldLocation{{ pos: uvec2(0, 0), angle: 0} Unk: 0 State: 0}
-#70 CombatWorldLocation{{ pos: uvec2(41784, 11098), angle: 192} Unk: 0 State: 3}
-#70 CombatWorldLocation{{ pos: uvec2(41784, 11098), angle: 192} Unk: 1 State: 3}
-#70 CombatWorldLocation{{ pos: uvec2(42184, 11098), angle: 192} Unk: 0 State: 3}
-#70 CombatWorldLocation{{ pos: uvec2(42584, 11098), angle: 192} Unk: 5 State: 3}
-#70 CombatWorldLocation{{ pos: uvec2(42984, 11098), angle: 192} Unk: 6 State: 3}
-#70 CombatWorldLocation{{ pos: uvec2(43384, 11098), angle: 192} Unk: 1 State: 3}
-#70 CombatWorldLocation{{ pos: uvec2(43784, 11098), angle: 64} Unk: 0 State: 3}
-#70 CombatWorldLocation{{ pos: uvec2(43384, 11098), angle: 64} Unk: 5 State: 3}
-#70 CombatWorldLocation{{ pos: uvec2(42984, 11098), angle: 64} Unk: 6 State: 3}
-#70 CombatWorldLocation{{ pos: uvec2(42584, 11098), angle: 64} Unk: 1 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(0, 0), angle: 0} Unk: 0 State: 0}
+#70 CombatWorldLocation{ { pos: uvec2(41784, 11098), angle: 192} Unk: 0 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(41784, 11098), angle: 192} Unk: 1 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(42184, 11098), angle: 192} Unk: 0 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(42584, 11098), angle: 192} Unk: 5 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(42984, 11098), angle: 192} Unk: 6 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(43384, 11098), angle: 192} Unk: 1 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(43784, 11098), angle: 64} Unk: 0 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(43384, 11098), angle: 64} Unk: 5 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(42984, 11098), angle: 64} Unk: 6 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(42584, 11098), angle: 64} Unk: 1 State: 3}
 ```
 
 * Combat Scouted Times
