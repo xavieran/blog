@@ -10,11 +10,11 @@ Here's the info I know about combat in Betrayal at Krondor.
 Different aspects of combat data are distributed in the save game in a number of locations. These include:
 
 * [Combat Entity Lists](#combat-entity-lists)
+* [Combat Scouted Times](#combat-scouted-times)
 * [Combatant Grid Locations](#combatant-grid-locations)
 * [Combatant Skills](#combatant-skills)
 * [Combatant Inventories](#combatant-inventories)
 * [Combatant World Locations](#combatant-world-locations)
-* [Combat Scouted Times](#combat-scouted-times)
 
 Combats are identified by a number I call `CombatIndex`. This index is used in the encounter for a combat to reference the specific combat. The index can then be used to link to the `CombatEntityList`.
 
@@ -40,7 +40,18 @@ For example, the first few combat entity lists are:
 
 Note that the `CombatIndex` is zero indexed. However the 0th combat does not seem to actually be present anywhere in the game. The 1st combat is the single moredhel warrior just south of LaMut. 
 
-The `CombatantIndex` is, as the name suggests, a number that can be used to link to information for individual combatants. It links to the `CombatantWorldLocation`, individual combantant inventories and skills.
+The `CombatantIndex` is, as the name suggests, a number that can be used to link to information for individual combatants. It links to their combat grid locations, their inventories, and their skills.
+
+## Combat Scouted Times
+
+When clicking on a combatant the party will attempt to "scout" the combat. This marks the combat as having been scouted. When the combat encounter is actually triggered the game will check the scouted flag and roll a die to see if the party successfully scouted the combat. If it did then the party gains the initiative and hence the first move in combat.
+
+Scouting chance will expire after 30 in-game minutes. The intention here seems to be to encourage players to trade off scouting a combat as soon as it is seen (low probability of success), versus trying to get as close to the combat as possible without triggering it in order to shorten the time between scouting and triggering combat. If the combat is triggered after scouting and within 30 minutes, a random number between 0 and 100 will be selected. If it is less than the lowest stealth skill in the party the scouting will be considered successful and the party will gain initiative in the ensuing combat.
+
+These times are indexed by `CombatIndex`. For combat #1, after clicking, we see the following:
+```
+#1 Time {2 days 14:31 (1b792)}
+```
 
 ## Combat Grid Locations
 
@@ -86,7 +97,8 @@ Lockpick { Max: 255 TrueSkill: 255 Current: 255 Experience: 0 Modifier: 0[ ] [ ]
 Scouting { Max: 60 TrueSkill: 60 Current: 60 Experience: 0 Modifier: 0[ ] [ ]}
 Stealth { Max: 58 TrueSkill: 58 Current: 58 Experience: 0 Modifier: 0[ ] [ ]}
 ```
-# Combatant Inventories
+
+## Combatant Inventories
 
 Similarly to the combatant skills above, the combatants inventory is indexed by `CombatantIndex`. This contains all the items a combatant is carrying. This container will be accessed and items removed when looting a combatant's corpse.
 
@@ -114,12 +126,12 @@ class CombatWorldLocation
 {
 public:
     GamePositionAndHeading mPosition;
-    std::uint8_t mUnknownFlag;
+    std::uint8_t mImageIndex;
     std::uint8_t mState;
 };
 ```
 
-The unknown flag seems to cycle as the combatant moves, however I have not deduced the meaning of it yet.
+The image index determines which variant of the combatant image will be displayed. Each direction the combatant can face has 3 images with slight differences that simulate movement. This value is used as on offset on the base direction image and changes as the combatant moves.
 
 The state flag denotes the state of the combatant. I am not 100% sure on the meaning of all the values of the state, but observation and disassembly has shown the following:
 
@@ -133,14 +145,16 @@ The state flag denotes the state of the combatant. I am not 100% sure on the mea
 
 Invisible combatants are not displayed in the world view and hence cannot be clicked on, so cannot be scouted. Moving combatants will move along a route as the player advances time in the game. Dead combatants will obviously be displayed as corpses and can be looted.
 
-The combatant world locations are not indexed by `CombatantIndex`. They seem to be more closely related to the encounter index they correspond to. They are not populated in the save until the tile with the combat encounter is loaded, and their initial values are taken from the combat encounter definitions.
-
-For combatant #3 we can see how the combatant world location changes as we progress time:
+The combat world locations are not populated in the save until the tile with the combat encounter is loaded, and their initial values are taken from the combat encounter definitions. They are indexed based on [encounter](#combat-definitions-in-the-encounters-file) dependent values. The offsets are calculated as
 ```
-#70 CombatWorldLocation{ { pos: uvec2(0, 0), angle: 0} Unk: 0 State: 0}
-#70 CombatWorldLocation{ { pos: uvec2(41784, 11098), angle: 192} Unk: 0 State: 3}
-#70 CombatWorldLocation{ { pos: uvec2(41784, 11098), angle: 192} Unk: 1 State: 3}
-#70 CombatWorldLocation{ { pos: uvec2(42184, 11098), angle: 192} Unk: 0 State: 3}
+combatWorldLocationIndex = encounter.mTileIndex * 35 + encounter.mIndex * 7 + relativeCombatantIndex
+```
+(DOUBLE CHECK THIS ^^)
+
+Where the relative combatant index is the index of the combatant within the combat, i.e. ranging from 0 to 6.
+
+For combat #1 we can see how the combatant world location changes as we progress time:
+```
 #70 CombatWorldLocation{ { pos: uvec2(42584, 11098), angle: 192} Unk: 5 State: 3}
 #70 CombatWorldLocation{ { pos: uvec2(42984, 11098), angle: 192} Unk: 6 State: 3}
 #70 CombatWorldLocation{ { pos: uvec2(43384, 11098), angle: 192} Unk: 1 State: 3}
@@ -150,21 +164,7 @@ For combatant #3 we can see how the combatant world location changes as we progr
 #70 CombatWorldLocation{ { pos: uvec2(42584, 11098), angle: 64} Unk: 1 State: 3}
 ```
 
-* Combat Scouted Times
-
-(The following requires more verification)
-
-
-When clicking on a combatant the party will attempt to "scout" the combat. This marks the combat as having been scouted. When the combat encounter is actually triggered the game will check the scouted flag and roll a die to see if the party successfully scouted the combat. If it did then the party gains the initiative and hence the first move in combat.
-
-The probability that scouting a combat will be successful is based on the amount of time since the combat was first scouted, and the scouting skill. The intention here seems to be to encourage players to trade off scouting a combat as soon as it is seen (low probability of success), versus trying to get as close to the combat as possible without triggering it in order to shorten the time between scouing and riggering combat.
-
-These are indexed by `CombatantIndex` (VERIFY!). For combatant #1, after clicking, we see the following:
-```
-#1 Time {2 days 14:31 (1b792)}
-```
-
-# Combat data in the encounters file
+# Combat definitions in the encounters file
 
 Combat is triggered in Betrayal at Krondor by the encounter type `COMBAT` or `TRAP`. The data for these can be found in the files `DEF_COMB.DAT`, and `DEF_TRAP.DAT` respectively. These files contain a list of combat encounters. The combat encounter defines which combat to trigger (i.e. the `CombatIndex`), the dialog to be shown on entry to the combat, the dialog to be shown when scouting the combat, the positions the party should take when retreating from a combat, whether the combat is an ambush or not, and per-combatant information.
 
