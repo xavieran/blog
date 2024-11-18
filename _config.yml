@@ -1,4 +1,8 @@
-theme: minima
+remote_theme: jekyll/minima
+plugins:
+  - jekyll-remote-theme
+minima:
+  skin: dark
 author: Emmanuel Jacyna
-title: xavieran's blog
+title: BaKGL
 description: Some interesting things learned while remaking Betrayal at Krondor
