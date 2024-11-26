@@ -9,3 +9,8 @@ description: Some interesting things learned while remaking Betrayal at Krondor
 collections:
   content:
     output: true
+navigation:
+  - name: Home
+    link: /
+  - name: Docs
+    link: /content/
