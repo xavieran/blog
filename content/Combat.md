@@ -1,5 +1,5 @@
 ---
-title: "Betrayal at Krondor - Combat"
+title: "Combat"
 date: 2024-11-17
 ---
 

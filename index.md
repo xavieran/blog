@@ -4,7 +4,9 @@ title: BaKGL
 ![bak_logo](http://xavieran.github.io/BaKHelpWeb/notendur.hi.is/eybjorn/krondor/kronlogb.gif?raw=true "BaK Logo")
 
 
-[Documentation](http://xavieran.github.io/blog/content/)
+#[Documentation](http://xavieran.github.io/blog/content/)
+
+## Intro
 
 I'll be using this site record my development and reverse engineering efforts on the 1993 video game Betrayal at Krondor.
 
@@ -14,6 +16,10 @@ Coming back to the game in the modern era, it's clear that despite how excellent
 
 In these pages I'll be documenting how Betrayal at Krondor works. I'll be going through all the game systems and formats. Expect progress to be slow as I enjoy programming more than writing, but hopefully this will be a useful resource for those interested in learning more about how one of the very best RPGs ever made ticks.
 
-You can get the game engine here: [BaKGL Repo](http://github.com/xavieran/BaKGL).
+## Links
+
+The repo for the game engine is here: [BaKGL Repo](http://github.com/xavieran/BaKGL).
+
+You can find the latest release for Windows here: [Windows Releases](https://github.com/xavieran/BaKGL/releases)
 
 The repo for the site is here: [GitHub Repo for this blog](http://github.com/xavieran/blog)
