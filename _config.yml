@@ -6,7 +6,7 @@ minima:
   skin: dark
 author: Emmanuel Jacyna
 title: BaKGL
-description: Some interesting things learned while remaking Betrayal at Krondor
+description: Docs about the BaKGL project
 collections:
   content:
     output: true

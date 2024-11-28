@@ -23,3 +23,7 @@ The repo for the game engine is here: [BaKGL Repo](http://github.com/xavieran/Ba
 You can find the latest release for Windows here: [Windows Releases](https://github.com/xavieran/BaKGL/releases)
 
 The repo for the site is here: [GitHub Repo for this blog](http://github.com/xavieran/blog)
+
+
+
+Site revision: {{ site.github.build_revision }}
