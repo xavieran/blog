@@ -10,7 +10,7 @@ Here's the info I know about combat in Betrayal at Krondor.
 Different aspects of combat data are distributed in the save game in a number of locations. These include:
 
 * [Combat Entity Lists](#combat-entity-lists)
-* [Combat Scouted Times](#combat-scouted-times)
+* [Combat Planned Times](#combat-planned-times)
 * [Combatant Grid Locations](#combatant-grid-locations)
 * [Combatant Skills](#combatant-skills)
 * [Combatant Inventories](#combatant-inventories)
@@ -42,11 +42,11 @@ Note that the `CombatIndex` is zero indexed. However the 0th combat does not see
 
 The `CombatantIndex` is, as the name suggests, a number that can be used to link to information for individual combatants. It links to their combat grid locations, their inventories, and their skills.
 
-## Combat Scouted Times
+## Combat Planned Times
 
-When clicking on a combatant the party will attempt to "scout" the combat. This marks the combat as having been scouted. When the combat encounter is actually triggered the game will check the scouted flag and roll a die to see if the party successfully scouted the combat. If it did then the party gains the initiative and hence the first move in combat.
+When clicking on a combatant the party will attempt to ambush the enemy. This marks the combat as having been ambushed. When the combat encounter is actually triggered the game will check the ambushed flag and roll a die to see if the party actualy successfully ambushed the enemies. If they did then the party gains the initiative and hence the first move in combat.
 
-Scouting chance will expire after 30 in-game minutes. The intention here seems to be to encourage players to trade off scouting a combat as soon as it is seen (low probability of success), versus trying to get as close to the combat as possible without triggering it in order to shorten the time between scouting and triggering combat. If the combat is triggered after scouting and within 30 minutes, a random number between 0 and 100 will be selected. If it is less than the lowest stealth skill in the party the scouting will be considered successful and the party will gain initiative in the ensuing combat.
+Ambush chance will expire after 30 in-game minutes. The intention here seems to be to encourage players to trade off planning/ambushing a combat as soon as it is seen (low probability of success), versus trying to get as close to the combat as possible without triggering it in order to shorten the time between ambushing and triggering combat. If the combat is triggered after ambushing and within 30 minutes, a random number between 0 and 100 will be selected. If it is less than the lowest stealth skill in the party the ambush will be considered successful and the party will gain initiative in the ensuing combat.
 
 These times are indexed by `CombatIndex`. For combat #1, after clicking, we see the following:
 ```
@@ -149,20 +149,20 @@ The combat world locations are not populated in the save until the tile with the
 ```
 combatWorldLocationIndex = encounter.mTileIndex * 35 + encounter.mIndex * 7 + relativeCombatantIndex
 ```
-(DOUBLE CHECK THIS ^^)
 
 Where the relative combatant index is the index of the combatant within the combat, i.e. ranging from 0 to 6.
 
 For combat #1 we can see how the combatant world location changes as we progress time:
 ```
-#70 CombatWorldLocation{ { pos: uvec2(42584, 11098), angle: 192} Unk: 5 State: 3}
-#70 CombatWorldLocation{ { pos: uvec2(42984, 11098), angle: 192} Unk: 6 State: 3}
-#70 CombatWorldLocation{ { pos: uvec2(43384, 11098), angle: 192} Unk: 1 State: 3}
-#70 CombatWorldLocation{ { pos: uvec2(43784, 11098), angle: 64} Unk: 0 State: 3}
-#70 CombatWorldLocation{ { pos: uvec2(43384, 11098), angle: 64} Unk: 5 State: 3}
-#70 CombatWorldLocation{ { pos: uvec2(42984, 11098), angle: 64} Unk: 6 State: 3}
-#70 CombatWorldLocation{ { pos: uvec2(42584, 11098), angle: 64} Unk: 1 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(42584, 11098), angle: 192} ImageIndex: 5 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(42984, 11098), angle: 192} ImageIndex: 6 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(43384, 11098), angle: 192} ImageIndex: 1 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(43784, 11098), angle: 64} ImageIndex: 0 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(43384, 11098), angle: 64} ImageIndex: 5 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(42984, 11098), angle: 64} ImageIndex: 6 State: 3}
+#70 CombatWorldLocation{ { pos: uvec2(42584, 11098), angle: 64} ImageIndex: 1 State: 3}
 ```
+As he moves the coordinates change and the image index is updated.
 
 # Combat definitions in the encounters file
 
