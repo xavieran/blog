@@ -25,7 +25,7 @@ There are nine types of encounter in the game, below I have enumerated their typ
 
 # Encounter definitions
 
-Encounters are defined on a per tile basis. Please refer to the [coordinate](/content/coordinates.md) system for more information on tiles.
+Encounters are defined on a per tile basis. Please refer to the [coordinate]({{ site.baseurl }}content/coordinates.md) system for more information on tiles.
 
 Each tile may have a file named `TXXYY.DAT`; I will refer to this as the tile encounter file. This contains a list of encounters that may be present in that tile. These are defined on a per chapter basis, so some encounters might be present on that tile only in chapter 1, but not in chapter 3. (e.g. Squire Phillip NPC location changes between chapters). Given that there are ten chapters in the game, there is space to store ten chapters' worth of encounters in the tile encounter file. Each chapter may have up to ten encounters
 
