@@ -164,6 +164,8 @@ For combat #1 we can see how the combatant world location changes as we progress
 ```
 As he moves the coordinates change and the image index is updated.
 
+The combat world locations are cleared when moving to a new zone. A consequence of this is that if you have not looted gear from a dead combatant when leaving a zone you will not be able to when reentering it.
+
 # Combat definitions in the encounters file
 
 Combat is triggered in Betrayal at Krondor by the encounter type `COMBAT` or `TRAP`. The data for these can be found in the files `DEF_COMB.DAT`, and `DEF_TRAP.DAT` respectively. These files contain a list of combat encounters. The combat encounter defines which combat to trigger (i.e. the `CombatIndex`), the dialog to be shown on entry to the combat, the dialog to be shown when scouting the combat, the positions the party should take when retreating from a combat, whether the combat is an ambush or not, and per-combatant information.
